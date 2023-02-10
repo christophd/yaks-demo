@@ -3,6 +3,8 @@
 
 .DS_Store
 
-yaks
-
 target/
+_output/
+
+.yaks-jbang/
+.camel-jbang/

@@ -1,0 +1,182 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Fruit Service API",
+    "version": "1.0.0",
+    "description": "A simple service pushing fruits in different languages"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status"
+                  ],
+                  "title": "Health",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [ "UP", "DOWN", "UNKNOWN" ]
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Health indication"
+          }
+        },
+        "operationId": "health",
+        "summary": "Health status of the application"
+      }
+    },
+    "/api/fruits/{id}": {
+      "get": {
+        "operationId" : "getFruitById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Fruit"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "description": "NOT FOUND"
+          },
+          "400": {
+            "description": "BAD REQUEST"
+          }
+        },
+        "summary": "Retrieve a fruit"
+      }
+    },
+    "/api/fruits": {
+      "get" : {
+        "operationId": "getFruits",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type": "array",
+                  "items" : {
+                    "$ref": "#/components/schemas/Fruit"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all fruits"
+      },
+      "post": {
+        "operationId": "addFruit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Fruit"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The fruit event has been created"
+          },
+          "500": {
+            "description": "The fruit could not be stored"
+          }
+        },
+        "summary": "Publish a new fruit"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Fruit": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "nutrition",
+          "status"
+        ],
+        "title": "Fruit",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [ "PENDING", "SOLD", "AVAILABLE" ]
+          },
+          "nutrition": {
+            "type": "object",
+            "properties": {
+              "calories": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "sugar": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}

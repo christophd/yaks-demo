@@ -2,36 +2,241 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.company</groupId>
-    <artifactId>yaks-demo</artifactId>
-    <version>1.0-SNAPSHOT</version>
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>21</version>
+  </parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+  <groupId>org.citrusframework.yaks</groupId>
+  <artifactId>yaks-demo</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>YAKS :: Demo</name>
+  <description>Demo showing Cloud-native BDD testing with YAKS</description>
 
-        <log4j2.version>2.12.0</log4j2.version>
-        <citrus.version>2.8.0</citrus.version>
-        <cucumber.version>3.0.2</cucumber.version>
-        <junit.version>4.12</junit.version>
+  <organization>
+    <name>Red Hat</name>
+    <url>https://redhat.com</url>
+  </organization>
 
-        <!-- image configuration -->
-        <yaks.version>1.0.0-SNAPSHOT</yaks.version>
-        <yaks-image.version>0.0.1</yaks-image.version>
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
-    </properties>
+  <developers>
+    <developer>
+      <name>The YAKS Team</name>
+    </developer>
+  </developers>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven.compiler.parameters>true</maven.compiler.parameters>
+    <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
+
+    <junit.version>4.13.1</junit.version>
+    <cucumber.version>7.11.0</cucumber.version>
+    <yaks.version>0.15.0-SNAPSHOT</yaks.version>
+    <citrus.version>3.5.0-SNAPSHOT</citrus.version>
+  </properties>
+
+  <build>
+    <testResources>
+      <testResource>
+        <directory>aws-s3</directory>
+      </testResource>
+      <testResource>
+        <directory>kafka</directory>
+      </testResource>
+      <testResource>
+        <directory>knative</directory>
+      </testResource>
+      <testResource>
+        <directory>openapi</directory>
+      </testResource>
+    </testResources>
+  </build>
+
+  <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <version>${cucumber.version}</version>
+        <scope>test</scope>
+      </dependency>
 
-        <dependency>
-            <groupId>dev.yaks</groupId>
-            <artifactId>yaks-testing</artifactId>
-            <version>${yaks.version}</version>
-        </dependency>
+      <!-- YAKS -->
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-standard</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-openapi</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-http</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-kafka</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-knative</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-camel</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-camel-k</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-testcontainers</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
 
+      <!-- Citrus -->
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-api</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-base</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-spring</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-validation-json</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-validation-text</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-validation-hamcrest</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
+  </dependencyManagement>
 
+  <dependencies>
+    <!-- YAKS -->
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-standard</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-openapi</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-http</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-kafka</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-knative</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-camel</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-camel-k</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-testcontainers</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Citrus -->
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-base</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-spring</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-validation-json</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-validation-text</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-validation-hamcrest</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

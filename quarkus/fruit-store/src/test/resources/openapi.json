@@ -1,0 +1,246 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "Generated API",
+    "version" : "1.0"
+  },
+  "paths" : {
+    "/" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/html" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TemplateInstance"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/api/fruits" : {
+      "get" : {
+        "operationId" : "listFruits",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SetFruit"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "addFruit",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Fruit"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/api/fruits/nutrition/{id}" : {
+      "get" : {
+        "operationId" : "getNutrition",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/api/fruits/price/{id}" : {
+      "get" : {
+        "operationId" : "getPriceUpdate",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/api/fruits/{id}" : {
+      "get" : {
+        "operationId" : "getFruitById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "delete" : {
+        "operationId" : "deleteFruit",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/fruits" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/event-stream" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PublisherString"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Category" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Nutrition" : {
+        "type" : "object",
+        "properties" : {
+          "calories" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "sugar" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        }
+      },
+      "BigDecimal" : {
+        "type" : "number"
+      },
+      "Status" : {
+        "enum" : [ "AVAILABLE", "PENDING", "SOLD" ],
+        "type" : "string"
+      },
+      "ListString" : {
+        "type" : "array",
+        "items" : {
+          "type" : "string"
+        }
+      },
+      "Fruit" : {
+        "type" : "object",
+        "properties" : {
+          "category" : {
+            "$ref" : "#/components/schemas/Category"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "id" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "nutrition" : {
+            "$ref" : "#/components/schemas/Nutrition"
+          },
+          "price" : {
+            "$ref" : "#/components/schemas/BigDecimal"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/Status"
+          },
+          "tags" : {
+            "$ref" : "#/components/schemas/ListString"
+          }
+        }
+      },
+      "SetFruit" : {
+        "uniqueItems" : true,
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Fruit"
+        }
+      },
+      "PublisherString" : {
+        "type" : "object"
+      },
+      "TemplateInstance" : {
+        "type" : "object"
+      }
+    }
+  }
+}

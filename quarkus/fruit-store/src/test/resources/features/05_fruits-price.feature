@@ -1,7 +1,7 @@
 Feature: Fruit price
 
   Background:
-    Given OpenAPI specification: http://localhost:8080/openapi
+    Given OpenAPI specification: http://localhost:8080/q/openapi
     Given variable id is "1002"
     Given variable key is "strawberry"
     Given variable price is "2.55"

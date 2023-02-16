@@ -3,20 +3,36 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.citrusframework.yaks</groupId>
-    <artifactId>yaks-demo</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>21</version>
   </parent>
 
+  <groupId>org.citrusframework.yaks</groupId>
   <artifactId>fruit-store</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <name>YAKS :: Demo :: Fruit Store App</name>
   <description>The fruit store application</description>
 
   <properties>
-    <quarkus-plugin.version>1.9.2.Final</quarkus-plugin.version>
-    <quarkus.platform.version>1.9.2.Final</quarkus.platform.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven.compiler.parameters>true</maven.compiler.parameters>
+    <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
+
+    <quarkus-plugin.version>2.16.2.Final</quarkus-plugin.version>
+    <quarkus.platform.version>2.16.2.Final</quarkus.platform.version>
 
     <cloudevents.version>1.1.0</cloudevents.version>
+    <citrus.version>3.5.0-SNAPSHOT</citrus.version>
+    <cucumber.version>7.11.0</cucumber.version>
+    <junit.version>4.13.1</junit.version>
+    <yaks.version>0.15.0-SNAPSHOT</yaks.version>
   </properties>
 
   <dependencyManagement>
@@ -27,6 +43,90 @@
         <version>${quarkus.platform.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.cloudevents</groupId>
+        <artifactId>cloudevents-api</artifactId>
+        <version>${cloudevents.version}</version>
+      </dependency>
+
+      <!-- Test scoped dependencies -->
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <version>${cucumber.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-spring</artifactId>
+        <version>${cucumber.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- YAKS -->
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-standard</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-openapi</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.citrusframework.yaks</groupId>
+        <artifactId>yaks-http</artifactId>
+        <version>${yaks.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- Citrus -->
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-api</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-base</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-spring</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-kafka</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-validation-json</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-validation-text</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.consol.citrus</groupId>
+        <artifactId>citrus-validation-hamcrest</artifactId>
+        <version>${citrus.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -60,18 +160,66 @@
     <dependency>
       <groupId>io.cloudevents</groupId>
       <artifactId>cloudevents-api</artifactId>
-      <version>${cloudevents.version}</version>
     </dependency>
 
     <!-- Test scoped dependencies -->
     <dependency>
       <groupId>org.jboss.slf4j</groupId>
-      <artifactId>slf4j-jboss-logging</artifactId>
+      <artifactId>slf4j-jboss-logmanager</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-spring</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- YAKS -->
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-standard</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-openapi</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.citrusframework.yaks</groupId>
+      <artifactId>yaks-http</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Citrus -->
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-base</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-spring</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-validation-json</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-validation-text</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-validation-hamcrest</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

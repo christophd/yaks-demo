@@ -1,7 +1,7 @@
 Feature: Fruit Store Open API
 
   Background:
-    Given OpenAPI specification: http://localhost:8080/openapi
+    Given OpenAPI specification: http://localhost:8080/q/openapi
 
   Scenario: addFruit
     When invoke operation: addFruit

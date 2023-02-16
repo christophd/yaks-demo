@@ -1,7 +1,7 @@
 Feature: Fruit Store Open API dictionary
 
   Background:
-    Given OpenAPI specification: http://localhost:8080/openapi
+    Given OpenAPI specification: http://localhost:8080/q/openapi
     Given OpenAPI inbound dictionary
       | $.name          | @assertThat(anyOf(is(Banana),is(Kiwi),is(Orange),is(Watermelon),is(Apple),is(Pineapple),is(Strawberry)))@ |
       | $.category.name | @assertThat(anyOf(is(tropical),is(pome),is(berry),is(melon)))@ |

@@ -116,7 +116,12 @@ public class FruitResource {
 
             fruit.name = attrs.getSubject().orElse(fruit.name);
 
-            fruitEventsEmitter.send(fruit);
+            if (fruitEventsEmitter.hasRequests()) {
+                fruitEventsEmitter.send(fruit);
+            } else {
+                logger.info("Processing fruit id:" + fruit.id);
+                store.add(fruit);
+            }
 
             return Response.status(Response.Status.CREATED).build();
         } catch (JsonProcessingException e) {

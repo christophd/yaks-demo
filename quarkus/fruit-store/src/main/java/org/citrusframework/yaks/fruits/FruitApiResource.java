@@ -35,10 +35,13 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.jboss.logging.Logger;
 
 @Path("/api/fruits")
 @Produces(MediaType.APPLICATION_JSON)
 public class FruitApiResource {
+
+    private final Logger logger = Logger.getLogger(FruitApiResource.class);
 
     @Inject
     FruitStore store;
@@ -67,7 +70,12 @@ public class FruitApiResource {
             throw new IllegalArgumentException(String.format("Fruit with id '%s' already exists", fruit.id));
         }
 
-        fruitEventsEmitter.send(fruit);
+        if (fruitEventsEmitter.hasRequests()) {
+            fruitEventsEmitter.send(fruit);
+        } else {
+            logger.info("Processing fruit id:" + fruit.id);
+            store.add(fruit);
+        }
         return Response.status(Response.Status.CREATED)
                 .entity(fruit).build();
     }

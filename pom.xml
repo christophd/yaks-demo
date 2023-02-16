@@ -47,14 +47,14 @@
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
 
-    <junit.version>4.13.1</junit.version>
-    <cucumber.version>7.11.0</cucumber.version>
     <yaks.version>0.15.0-SNAPSHOT</yaks.version>
-    <citrus.version>3.5.0-SNAPSHOT</citrus.version>
   </properties>
 
   <build>
     <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
       <testResource>
         <directory>aws-s3</directory>
       </testResource>
@@ -72,13 +72,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-junit</artifactId>
-        <version>${cucumber.version}</version>
-        <scope>test</scope>
-      </dependency>
-
       <!-- YAKS -->
       <dependency>
         <groupId>org.citrusframework.yaks</groupId>
@@ -128,44 +121,6 @@
         <version>${yaks.version}</version>
         <scope>test</scope>
       </dependency>
-
-      <!-- Citrus -->
-      <dependency>
-        <groupId>com.consol.citrus</groupId>
-        <artifactId>citrus-api</artifactId>
-        <version>${citrus.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.consol.citrus</groupId>
-        <artifactId>citrus-base</artifactId>
-        <version>${citrus.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.consol.citrus</groupId>
-        <artifactId>citrus-spring</artifactId>
-        <version>${citrus.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.consol.citrus</groupId>
-        <artifactId>citrus-validation-json</artifactId>
-        <version>${citrus.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.consol.citrus</groupId>
-        <artifactId>citrus-validation-text</artifactId>
-        <version>${citrus.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.consol.citrus</groupId>
-        <artifactId>citrus-validation-hamcrest</artifactId>
-        <version>${citrus.version}</version>
-        <scope>test</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -209,33 +164,6 @@
     <dependency>
       <groupId>org.citrusframework.yaks</groupId>
       <artifactId>yaks-testcontainers</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- Citrus -->
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-base</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-spring</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-validation-json</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-validation-text</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-validation-hamcrest</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

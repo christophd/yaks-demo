@@ -23,7 +23,11 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.inject.Singleton;
+
+import jakarta.inject.Singleton;
+import org.citrusframework.yaks.fruits.model.Category;
+import org.citrusframework.yaks.fruits.model.Fruit;
+import org.citrusframework.yaks.fruits.model.Nutrition;
 
 /**
  * @author Christoph Deppisch

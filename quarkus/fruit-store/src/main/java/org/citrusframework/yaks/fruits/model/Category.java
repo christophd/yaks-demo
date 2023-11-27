@@ -15,23 +15,21 @@
  * limitations under the License.
  */
 
-package org.citrusframework.yaks.fruits;
-
-import java.math.BigDecimal;
+package org.citrusframework.yaks.fruits.model;
 
 /**
  * @author Christoph Deppisch
  */
-public class Price {
+public class Category {
 
+    public long id;
     public String name;
-    public BigDecimal value;
 
-    public Price() {
+    public Category() {
     }
 
-    public Price(String name, BigDecimal price) {
+    public Category(long id, String name) {
+        this.id = id;
         this.name = name;
-        this.value = price;
     }
 }

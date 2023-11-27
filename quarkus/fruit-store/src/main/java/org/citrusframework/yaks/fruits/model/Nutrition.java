@@ -15,37 +15,21 @@
  * limitations under the License.
  */
 
-package org.citrusframework.yaks.fruits;
-
-import java.math.BigDecimal;
-import java.util.List;
+package org.citrusframework.yaks.fruits.model;
 
 /**
  * @author Christoph Deppisch
  */
-public class Fruit {
+public class Nutrition {
 
-    public Long id;
-    public String name;
-    public String description;
-    public Category category;
-    public List<String> tags;
-    public Status status = Status.PENDING;
-    public Nutrition nutrition;
-    public BigDecimal price = new BigDecimal("0.1");
+    public Integer calories;
+    public Integer sugar;
 
-    public Fruit() {
+    public Nutrition() {
     }
 
-    public Fruit(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    enum Status {
-        SOLD,
-        PENDING,
-        AVAILABLE
+    public Nutrition(Integer calories, Integer sugar) {
+        this.calories = calories;
+        this.sugar = sugar;
     }
 }

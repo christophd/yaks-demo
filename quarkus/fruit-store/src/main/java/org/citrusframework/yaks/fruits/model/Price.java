@@ -15,21 +15,23 @@
  * limitations under the License.
  */
 
-package org.citrusframework.yaks.fruits;
+package org.citrusframework.yaks.fruits.model;
+
+import java.math.BigDecimal;
 
 /**
  * @author Christoph Deppisch
  */
-public class Nutrition {
+public class Price {
 
-    public Integer calories;
-    public Integer sugar;
+    public String name;
+    public BigDecimal value;
 
-    public Nutrition() {
+    public Price() {
     }
 
-    public Nutrition(Integer calories, Integer sugar) {
-        this.calories = calories;
-        this.sugar = sugar;
+    public Price(String name, BigDecimal price) {
+        this.name = name;
+        this.value = price;
     }
 }

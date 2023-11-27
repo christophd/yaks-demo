@@ -5,6 +5,8 @@
 
 target/
 _output/
+test-output/
 
 .yaks-jbang/
 .camel-jbang/
+.citrus-jbang/

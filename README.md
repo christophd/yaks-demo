@@ -36,7 +36,8 @@ Each of them is represented in a subdirectory holding both System under test and
 - [aws-s3](aws-s3)
 - [kafka](kafka)
 - [knative](knative)
-- [quarkus](quarkus)
+- [fruit-store](quarkus/fruit-store)
+- [food-market](quarkus/food-market)
 
 In each of these directories you will find one or more `.feature` files that you can run with YAKS.
 Usually the test also takes care on setting up the required test infrastructure (e.g. the System under test, Knative broker, Kafka, AWS S3, ...).

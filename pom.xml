@@ -47,7 +47,7 @@
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
 
-    <yaks.version>0.15.0-SNAPSHOT</yaks.version>
+    <yaks.version>0.18.0-SNAPSHOT</yaks.version>
   </properties>
 
   <build>

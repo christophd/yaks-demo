@@ -1,30 +1,35 @@
-# openapi-swaggerui-quickstart project
+# YAKS Quarkus Demo
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+The test connects to a Quarkus application and invokes the provided REST OpenAPI endpoint.
+The YAKS test invokes the different operations and verifies the HTTP responses.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+# Run the Quarkus application
 
-## Running the application in dev mode
+The tests use a Quarkus web application as SUT (System Under Test). We need to start the application first before running any test.
 
-You can run your application in dev mode that enables live coding using:
+You can run the OpenAPI fruit-store web application as follows:
+
+```shell script
+$ mvn quarkus:dev
+```                             
+
+This runs the fruit-store service that exposes the Http REST API on `http://localhost:8080`.
+
+# Test Scenario
+
+![test-scenario](test-scenario.png)
+
+# Run YAKS tests
+
+Once the Quarkus application is running on your local machine, you can run the tests with:
+
+```shell script
+$ yaks run fruit-store/src/test/resources/features --local
 ```
-./mvnw quarkus:dev
-```
 
-## Packaging and running the application
+As an alternative you can run the Cucumber JUnit test 
+[org.citrusframework.yaks.fruits.FruitsFeature](fruit-store/src/test/java/org/citrusframework/yaks/fruits/FruitsFeature.java) from your favorite IDE.
 
-The application can be packaged using `./mvnw package`.
-It produces the `openapi-swaggerui-quickstart-1.0-SNAPSHOT-runner.jar` file in the `/target` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
+This will run all feature files located in [src/test/resources/features](fruit-store/src/test/resources/features).
 
-The application is now runnable using `java -jar target/openapi-swaggerui-quickstart-1.0-SNAPSHOT-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using: `./mvnw package -Pnative`.
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: `./mvnw package -Pnative -Dquarkus.native.container-build=true`.
-
-You can then execute your native executable with: `./target/openapi-swaggerui-quickstart-1.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image.
+Happy testing!
